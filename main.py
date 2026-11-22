@@ -112,8 +112,8 @@ async def call_gemini(client: genai.Client, contents, config: types.GenerateCont
             timeout=45.0,
         )
     except asyncio.TimeoutError:
-        print(f"[Gemini timeout] model={MODEL_NAME} (>15s)", flush=True)
-        raise RuntimeError(f"Gemini ({MODEL_NAME}) không phản hồi sau 15s")
+        print(f"[Gemini timeout] model={MODEL_NAME} (>45s)", flush=True)
+        raise RuntimeError(f"Gemini ({MODEL_NAME}) không phản hồi sau 45s")
     except Exception as exc:
         print(f"[Gemini error] model={MODEL_NAME}: {repr(exc)}", flush=True)
         raise
@@ -125,7 +125,7 @@ def get_gemini_client() -> genai.Client:
             status_code=503,
             detail="Chưa cấu hình GEMINI_API_KEY trên máy chủ. Hãy đặt biến môi trường GEMINI_API_KEY rồi khởi động lại backend.",
         )
-    return genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=15000))
+    return genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=45000))
 
 
 # In-memory store for confessions (Vietnamese community feed)
