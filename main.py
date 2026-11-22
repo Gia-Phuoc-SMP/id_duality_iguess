@@ -109,7 +109,7 @@ async def call_gemini(client: genai.Client, contents, config: types.GenerateCont
                 contents=contents,
                 config=config,
             ),
-            timeout=15.0,
+            timeout=45.0,
         )
     except asyncio.TimeoutError:
         print(f"[Gemini timeout] model={MODEL_NAME} (>15s)", flush=True)
